@@ -78,7 +78,7 @@ module.exports = (app) => {
   // delete brand
   const remove = async (req, res) => {
     try {
-      await Brand.findByIdAndRemove(req.params.id);
+      await Brand.findOneAndDelete({ _id: req.params.id });
 
       return res.status(200).send({ message: "Brand successfully removed!" });
     } catch (err) {

@@ -41,14 +41,14 @@ module.exports = (app) => {
 
       const product = new Product({
         company: company_id,
-        name,
-        category,
-        brand,
-        quantity,
-        price_f,
-        price,
-        reference,
-        description,
+        name: name,
+        category: category,
+        brand: brand,
+        quantity: quantity,
+        price_f: price_f,
+        price: price,
+        reference: reference,
+        description: description,
         image: photo,
       });
 
