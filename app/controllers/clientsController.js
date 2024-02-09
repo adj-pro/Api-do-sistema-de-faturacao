@@ -16,12 +16,17 @@ module.exports = (app) => {
         .equals(req.userId)
         .populate("user_id");
 
+      let company_id = "";
+      _company.forEach((result) => {
+        company_id = result._id;
+      });
+
       const client = new Clients({
         email,
         name,
         phone,
         address,
-        company: _company._id,
+        company: company_id,
       });
 
       await client.save();
@@ -57,9 +62,15 @@ module.exports = (app) => {
         .where("user_id")
         .equals(req.userId)
         .populate("user_id");
+
+      let company_id = "";
+      _company.forEach((result) => {
+        company_id = result._id;
+      });
+
       const client = await Clients.find({})
         .where("company")
-        .equals(_company._id)
+        .equals(company_id)
         .populate("company");
 
       return res.status(200).send({ client });

@@ -17,10 +17,22 @@ module.exports = (app) => {
         .equals(req.userId)
         .populate("user_id");
 
-      console.log("_company : ", _company);
+      _company.for;
+
+      // const arr = []
+
+      let company_user_id = "";
+      _company.forEach((result) => {
+        console.log("result._id : ", result._id);
+        company_user_id = result._id;
+      });
+      // const as = _company.includes('_id')
+      console.log("_company _id : ", _company._id);
+      console.log("company_user_id : ", company_user_id);
+      console.log("_company user : ", _company.user_id);
 
       const category = new Category({
-        company: _company._id,
+        company: company_user_id,
         name,
       });
 
@@ -44,9 +56,14 @@ module.exports = (app) => {
         .where("user_id")
         .equals(req.userId)
         .populate("user_id");
+      let company_id = "";
+      _company.forEach((result) => {
+        console.log("result._id : ", result._id);
+        company_id = result._id;
+      });
       const category = await Category.find({})
         .where("company")
-        .equals(_company._id)
+        .equals(company_id)
         .populate("company");
 
       return res.send({ category });

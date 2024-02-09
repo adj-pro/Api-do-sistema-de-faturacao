@@ -19,7 +19,7 @@ module.exports = () => {
       minLength: 9,
     },
     address: {
-      type: string,
+      type: String,
       required: false,
     },
     company: {

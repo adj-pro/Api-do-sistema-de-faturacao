@@ -27,17 +27,20 @@ module.exports = (app) => {
         const { firebaseUrl } = req.files;
         photo = firebaseUrl;
       }
-      console.log('photo : ', photo)
+      console.log("photo : ", photo);
 
       const _company = await Company.find({})
         .where("user_id")
         .equals(req.userId)
         .populate("user_id");
 
-      console.log("_company product : ", _company);
+      let company_id = "";
+      _company.forEach((result) => {
+        company_id = result._id;
+      });
 
       const product = new Product({
-        company: _company._id,
+        company: company_id,
         name,
         category,
         brand,
@@ -69,9 +72,15 @@ module.exports = (app) => {
         .where("user_id")
         .equals(req.userId)
         .populate("user_id");
+
+      let company_id = "";
+      _company.forEach((result) => {
+        company_id = result._id;
+      });
+
       const product = await Product.find({})
         .where("company")
-        .equals(_company._id)
+        .equals(company_id)
         .populate(["company", "category", "brand"]);
 
       return res.send({ product });
@@ -88,8 +97,13 @@ module.exports = (app) => {
         .equals(req.userId)
         .populate("user_id");
 
+      let company_id = "";
+      _company.forEach((result) => {
+        company_id = result._id;
+      });
+
       const product = await Product.find({
-        $and: [{ company: _company._id }, { id: req.params.id }],
+        $and: [{ company: company_id }, { id: req.params.id }],
       });
       // const product = await Product.findById(req.params.id);
       return res.send({ product });
@@ -107,8 +121,13 @@ module.exports = (app) => {
         .equals(req.userId)
         .populate("user_id");
 
+      let company_id = "";
+      _company.forEach((result) => {
+        company_id = result._id;
+      });
+
       const product = await Product.find({
-        $and: [{ company: _company._id }],
+        $and: [{ company: company_id }],
       }).sort({ purchase_number: -1 });
 
       return res.status(200).send({ product });
@@ -127,8 +146,13 @@ module.exports = (app) => {
         .equals(req.userId)
         .populate("user_id");
 
+      let company_id = "";
+      _company.forEach((result) => {
+        company_id = result._id;
+      });
+
       const product = await Product.find({
-        $and: [{ company: _company._id }],
+        $and: [{ company: company_id }],
       }).sort({ quantity: 1 });
       return res.status(200).send({ product });
     } catch (err) {
@@ -146,8 +170,13 @@ module.exports = (app) => {
         .equals(req.userId)
         .populate("user_id");
 
+      let company_id = "";
+      _company.forEach((result) => {
+        company_id = result._id;
+      });
+
       const product = await Product.find({
-        $and: [{ company: _company._id }, { quantity: { $lte: 0 } }],
+        $and: [{ company: company_id }, { quantity: { $lte: 0 } }],
       });
       return res.status(200).send({ product });
     } catch (err) {

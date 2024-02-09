@@ -47,7 +47,7 @@ module.exports = () => {
     },
   });
 
-  const Buy = mongoose.model("Buy", BuySchema);
+  const Buyss = mongoose.model("Buyss", BuySchema);
 
-  return { Buy };
+  return { Buyss };
 };

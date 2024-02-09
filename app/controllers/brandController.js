@@ -17,10 +17,13 @@ module.exports = (app) => {
         .equals(req.userId)
         .populate("user_id");
 
-      console.log("_company : ", _company);
+      let company_id = "";
+      _company.forEach((result) => {
+        company_id = result._id;
+      });
 
       const brand = new Brand({
-        company: _company._id,
+        company: company_id,
         name,
       });
 
@@ -44,9 +47,15 @@ module.exports = (app) => {
         .where("user_id")
         .equals(req.userId)
         .populate("user_id");
+
+      let company_id = "";
+      _company.forEach((result) => {
+        company_id = result._id;
+      });
+
       const brand = await Brand.find({})
         .where("company")
-        .equals(_company._id)
+        .equals(company_id)
         .populate("company");
 
       return res.send({ brand });
@@ -71,9 +80,7 @@ module.exports = (app) => {
     try {
       await Brand.findByIdAndRemove(req.params.id);
 
-      return res
-        .status(200)
-        .send({ message: "Brand successfully removed!" });
+      return res.status(200).send({ message: "Brand successfully removed!" });
     } catch (err) {
       return res.status(400).send({ error: "Error loading Brand." });
     }
