@@ -109,7 +109,7 @@ module.exports = (app) => {
   // delete client
   const remove = async (req, res) => {
     try {
-      await Clients.findByIdAndRemove(req.params.id);
+      await Clients.findOneAndDelete({ _id: req.params.id });
 
       return res.status(200).send({ message: "Client successfully removed!" });
     } catch (err) {

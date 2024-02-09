@@ -86,12 +86,13 @@ module.exports = (app) => {
   // delete category
   const remove = async (req, res) => {
     try {
-      await Category.findByIdAndRemove(req.params.id);
+      await Category.findOneAndDelete({ _id: req.params.id });
 
       return res
         .status(200)
         .send({ message: "Category successfully removed!" });
     } catch (err) {
+      console.log('err delete category : ', err);
       return res.status(400).send({ error: "Error loading Category." });
     }
   };
