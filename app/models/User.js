@@ -8,25 +8,11 @@ module.exports = () => {
       type: String,
       required: true
     },
-    company: {
-        type: String,
-        unique: true,
-        required: true,
-    },
     email: {
       type: String,
       unique: true,
       required: true,
       lowercase: true
-    },
-    phone : {
-      type: Number,
-      required: false,
-      minLength: 9
-    },
-    nif: {
-      type: Number,
-      required: false
     },
     isAdmin: {
       type: Boolean,

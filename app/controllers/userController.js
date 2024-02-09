@@ -16,23 +16,17 @@ module.exports = (app) => {
 
   // register
   const register = async (req, res) => {
-    const {name, company, email, nif, password, phone} = req.body;
+    const { name, email, password } = req.body;
 
     try {
         if (await User.findOne({ email })) {
             return res.status(401).send({ error: 'User already exist' });
         }
-        if (await User.findOne({ company })) {
-            return res.status(401).send({ error: 'Company already exist' });
-        }
 
         const user = new User({
             email,
-            company,
             name,
-            phone,
             password,
-            nif
           });
     
           await user.save();
