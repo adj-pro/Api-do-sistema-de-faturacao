@@ -2,7 +2,7 @@ var admin = require("firebase-admin");
 // const tinyurl = require('tinyurl');
 var serviceAccount = require("../config/firebase_key.json");
 
-const BUCKET_URL = "biskato-557d0.appspot.com";
+const BUCKET_URL = "sistema-faturacao-6832d.appspot.com";
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
